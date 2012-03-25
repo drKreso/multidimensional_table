@@ -3,11 +3,12 @@ require 'multidimensional_table/non_valid_dimension'
 
 module MultidimensionalTable
 
-  def dimensions=(map)
+  def set_dimensions(map)
     @dimensions = map
     check_duplicates(map)
     @dimensions.each do |key, value|
       value.each do |possible_value|
+        Kernel.class_eval do
         define_method possible_value do |value = nil,  &block|
           if value.nil? && !block.nil?
             @index_level += 1
@@ -22,6 +23,7 @@ module MultidimensionalTable
             context = (1..@index_level).reduce([]) { |context, level| context << @context[level] }
             @table_rules[value] = context << ["@attributes[:#{key}] == :#{possible_value}"]  
           end
+        end
         end
       end
     end
@@ -55,7 +57,7 @@ module MultidimensionalTable
   end
 
   def table_result
-    @table_rules.each { |key, condition| return key if class_eval(condition.join(' && ')) == true }
+    @table_rules.each { |key, condition| return key if eval(condition.join(' && ')) == true }
   end
 
   def table_data

@@ -6,13 +6,13 @@ module MultidimensionalTable
     context 'basic setup' do
       it 'knows dimenions it has' do
         subject.extend(MultidimensionalTable)
-        subject.dimensions = { :material => [:potassium, :coal, :sugar] }
+        subject.set_dimensions ( { :material => [:potassium, :coal, :sugar] })
         subject.dimensions[:material].should == [:potassium, :coal, :sugar]
       end
 
       it 'creates methods for dimensions' do
         subject.extend(MultidimensionalTable)
-        subject.dimensions = { :material => [:potassium, :coal, :sugar] }
+        subject.set_dimensions ( { :material => [:potassium, :coal, :sugar] })
         subject.respond_to?(:potassium).should == true
         subject.respond_to?(:coal).should == true
         subject.respond_to?(:sugar).should == true
@@ -20,7 +20,7 @@ module MultidimensionalTable
 
       it 'should be able to find data from table' do
         subject.extend(MultidimensionalTable)
-        subject.dimensions = { :material => [:potassium, :coal, :sugar] }
+        subject.set_dimensions ( { :material => [:potassium, :coal, :sugar] })
         subject.table_data do
           subject.coal '8t' 
           subject.sugar '9t' 
@@ -35,7 +35,7 @@ module MultidimensionalTable
     context 'two dimensional' do
       before(:each) do
         subject.extend(MultidimensionalTable)
-        subject.dimensions = { :material => [:potassium, :coal, :sugar], :city => [:zagreb, :zadar] }
+        subject.set_dimensions ( { :material => [:potassium, :coal, :sugar], :city => [:zagreb, :zadar] })
         subject.table_data do
           subject.zagreb do
             subject.coal '8t' 
@@ -62,9 +62,9 @@ module MultidimensionalTable
     context 'three dimensional' do
       before(:each) do
         subject.extend(MultidimensionalTable)
-        subject.dimensions = { :material => [:potassium, :coal, :sugar],
+        subject.set_dimensions ( { :material => [:potassium, :coal, :sugar],
           :city => [:zagreb, :zadar],
-          :time_of_day => [:morning, :evening] }
+          :time_of_day => [:morning, :evening] } )
         subject.table_data do
           subject.zagreb do
             subject.morning do
@@ -101,9 +101,9 @@ module MultidimensionalTable
 
     it 'should complain if dimension does not exist' do
       subject.extend(MultidimensionalTable)
-      subject.dimensions = { :material => [:potassium, :coal, :sugar],
+      subject.set_dimensions( { :material => [:potassium, :coal, :sugar],
         :city => [:zagreb, :zadar],
-        :time_of_day => [:morning, :evening] }
+        :time_of_day => [:morning, :evening] })
 
       expect do
         subject.table_data do
@@ -120,9 +120,9 @@ module MultidimensionalTable
     it 'should complain if same dimension name exists' do
       subject.extend(MultidimensionalTable)
       expect do
-        subject.dimensions = { :material => [:potassium, :coal, :sugar],
+        subject.set_dimensions ({ :material => [:potassium, :coal, :sugar],
           :city => [:zagreb, :zadar],
-          :time_of_day => [:coal, :zagreb] }
+          :time_of_day => [:coal, :zagreb] })
       end.to raise_error(NonValidDimension, 'Multiple definitions are not allowed : coal for dimension material and time_of_day, zagreb for dimension city and time_of_day')
     end
 
