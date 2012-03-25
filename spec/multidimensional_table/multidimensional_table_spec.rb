@@ -15,15 +15,6 @@ describe MultidimensionalTable do
     subject.respond_to?(:sugar).should == true
   end
 
-  it 'should be able to add table data onto dimensions' do
-    subject.extend(MultidimensionalTable)
-    subject.dimensions = { :material => [:potassium, :coal, :sugar] }
-    subject.table_data do
-      subject.coal '8t' 
-    end
-    subject.table_rules.count.should == 1
-  end
-
   it 'should be able to find data from table' do
     subject.extend(MultidimensionalTable)
     subject.dimensions = { :material => [:potassium, :coal, :sugar] }

@@ -1,7 +1,4 @@
 module MultidimensionalTable
-
-  attr_reader :table_rules
-
   @context = []
   @table_rules = {}
   @attributes ||= {}
@@ -18,9 +15,7 @@ module MultidimensionalTable
             block.call
             @index_level -= 1
           elsif !value.nil?
-            context = (1..@index_level).reduce([]) do |context, level|
-              context << @context[level]
-            end
+            context = (1..@index_level).reduce([]) { |context, level| context << @context[level] }
             @table_rules[value] = context << ["@attributes[:#{key}] == :#{possible_value}"]  
           end
         end
@@ -29,26 +24,18 @@ module MultidimensionalTable
   end
 
   def update_attributes(attrs)
-    attrs.each do |key, value|
-      @attributes[key] = value
-    end
+    attrs.each do |key, value| @attributes[key] = value end
   end
 
   def table_result
-    @table_rules.each do |key, condition| 
-      if class_eval(condition.join(' && ')) == true
-        return key
-      end
-    end
+    @table_rules.each { |key, condition| return key if class_eval(condition.join(' && ')) == true }
   end
 
-  def table_data(&block)
-    @context = []
-    block.call
+  def table_data
+    yield
   end
 
   def dimensions
     @dimensions ||= {}
   end
-
 end
