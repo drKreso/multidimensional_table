@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["kresimir.bojcic@gmail.com"]
   gem.description   = %q{Describe a multidimensional table in pure Ruby}
   gem.summary       = %q{Attempt to make generic API for describing multidimensional data in Ruby}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/drKreso/multidimensional_table"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
