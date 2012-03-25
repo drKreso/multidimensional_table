@@ -67,7 +67,7 @@ end
 
 mt = new MaterialConsumption
 mt.update_attributes(:year => :year_1994, :city => :buenos_aires, :material => :coal)
-mt.table_result ==> '8t'
+mt.table_result #==> '8t'
 ```
 
 ## Contributing
