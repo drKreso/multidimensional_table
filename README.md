@@ -3,8 +3,9 @@
 This is a product of a coding kata. I wanted an easy way to describe multidimensional table
 but only using ruby code and not some sort of .yaml or other custom format that you have to parse in some way.
 
-For example 
+For example:
 
+```
 1994      
   BuenosAires
     Coal
@@ -17,6 +18,7 @@ For example
       8t
     Potassium
       6t
+```
 
 Then if I say I need to get Coal in Buenos Aires in 1995 I wan't to get 8t. The idea is to make easy DSL to 
 describe the same thing in pure Ruby.
@@ -37,6 +39,7 @@ Or install it yourself as:
 
 ## Usage
 
+```
 class MaterialConsumption
   include MultidimensionalTable
 
@@ -65,6 +68,7 @@ end
 mt = new MaterialConsumption
 mt.update_attributes(:year => :year_1994, :city => :buenos_aires, :material => :coal)
 mt.table_result.should == '8t'
+```
 
 ## Contributing
 
