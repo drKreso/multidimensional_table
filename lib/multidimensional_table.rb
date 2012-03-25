@@ -1,5 +1,3 @@
 require "multidimensional_table/version"
+require "multidimensional_table/multidimensional_table"
 
-module MultidimensionalTable
-  # Your code goes here...
-end
