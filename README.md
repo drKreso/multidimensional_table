@@ -9,17 +9,17 @@ For example
   BuenosAires
     Coal
       19t
-    Pottasium
+    Potassium
       5t
 1995 
   BuenosAires
     Coal  
       8t
-    Pottasium
+    Potassium
       6t
 
 Then if I say I need to get Coal in Buenos Aires in 1995 I wan't to get 8t. The idea is to make easy DSL to 
-describe the same thing in Ruby.
+describe the same thing in pure Ruby.
 
 ## Installation
 
@@ -40,30 +40,31 @@ Or install it yourself as:
 class MaterialConsumption
   include MultidimensionalTable
 
-  dimensions  :year => [:year_1994, :year_1994], :city => [:buenos_aires] , :material => [:coal, :pottasium]
+  dimensions  :year => [:year_1994, :year_1995],
+              :city => [:buenos_aires],
+              :material => [:coal, :potassium]
 
   table_data do
-    year :year_1994 do
-      city :buenos_aires do
-        material :coal { '8t' }
-        material :pottasium { '5t' }
+    year_1994 do
+      buenos_aires do
+        coal '8t' 
+        potassium '5t' 
       end
     end
 
-    year :year_1995 do
-      city :buenos_aires do
-        material :coal { '8t' }
-        material :pottasium { '6t' }
+    year_1995 do
+      buenos_aires do
+        coal '8t' 
+        potassium '6t' 
       end
     end
   end
-end
 
+end
 
 mt = new MaterialConsumption
 mt.update_attributes(:year => :year_1994, :city => :buenos_aires, :material => :coal)
 mt.table_result.should == '8t'
-
 
 ## Contributing
 
