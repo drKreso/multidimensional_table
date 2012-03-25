@@ -38,27 +38,31 @@ Or install it yourself as:
     $ gem install multidimensional_table
 
 ## Usage
-
 ```
 class MaterialConsumption
   include MultidimensionalTable
 
-  dimensions  :year => [:year_1994, :year_1995],
-              :city => [:buenos_aires],
-              :material => [:coal, :potassium]
+  def dimensions
+    {
+     :year => [:year_1994, :year_1995],
+     :city => [:buenos_aires],
+     :material => [:coal, :potassium]
+    }
+  end
 
-  table_data do
-    year_1994 do
-      buenos_aires do
-        coal '8t' 
-        potassium '5t' 
+  def data
+    table_data do
+      year_1994 do
+        buenos_aires do
+          coal '8t' 
+          potassium '5t' 
+        end
       end
-    end
-
-    year_1995 do
-      buenos_aires do
-        coal '8t' 
-        potassium '6t' 
+      year_1995 do
+        buenos_aires do
+          coal '8t' 
+          potassium '6t' 
+        end
       end
     end
   end

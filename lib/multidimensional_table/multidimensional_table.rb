@@ -3,6 +3,11 @@ require 'multidimensional_table/non_valid_dimension'
 
 module MultidimensionalTable
 
+  def initialize
+    set_dimensions(dimensions)
+    data
+  end
+
   def set_dimensions(map)
     @dimensions = map
     check_duplicates(map)
@@ -71,4 +76,5 @@ module MultidimensionalTable
   def dimensions
     @dimensions ||= {}
   end
+
 end
