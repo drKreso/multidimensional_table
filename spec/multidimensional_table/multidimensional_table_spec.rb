@@ -117,14 +117,5 @@ module MultidimensionalTable
       end.to raise_error(NonExistantDimensionAttribute, 'Nonexistan dimension attribute :coal_error')
     end
 
-    it 'should complain if same dimension name exists' do
-      subject.extend(MultidimensionalTable)
-      expect do
-        subject.set_dimensions ({ :material => [:potassium, :coal, :sugar],
-          :city => [:zagreb, :zadar],
-          :time_of_day => [:coal, :zagreb] })
-      end.to raise_error(NonValidDimension, 'Multiple definitions are not allowed : coal for dimension material and time_of_day, zagreb for dimension city and time_of_day')
-    end
-
   end
 end

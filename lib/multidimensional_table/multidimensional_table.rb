@@ -10,7 +10,6 @@ module MultidimensionalTable
 
   def set_dimensions(map)
     @dimensions = map
-    check_duplicates(map)
     @dimensions.each do |key, value|
       value.each do |possible_value|
         Kernel.class_eval do
@@ -31,29 +30,6 @@ module MultidimensionalTable
         end
         end
       end
-    end
-  end
-
-  def check_duplicates(map)
-    list = {}
-    combined = map.each_value.reduce([]) { |all, value| all << value }.flatten
-    combined.each do |item|
-      if list[item].nil? 
-        list[item] = 1
-      else
-        list[item] = list[item] + 1
-      end
-    end
-    duplicates = list.select { |key, value| key if value > 1 }
-    if duplicates != {}
-      non_valid_dimensions = {}
-      duplicates.each_key do |duplicate|
-        non_valid_dimensions[duplicate] = []
-        map.each do |key,value|
-          non_valid_dimensions[duplicate] << key if value.include?(duplicate)
-        end
-      end
-      raise NonValidDimension, non_valid_dimensions
     end
   end
 
