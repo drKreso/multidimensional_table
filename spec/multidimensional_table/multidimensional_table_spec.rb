@@ -117,5 +117,26 @@ module MultidimensionalTable
       end.to raise_error(NonExistantDimensionAttribute, 'Nonexistan dimension attribute :coal_error')
     end
 
+    it 'should complain when there are multiple results' do
+      subject.extend(MultidimensionalTable)
+      subject.set_dimensions( { :material => [:potassium, :coal, :sugar],
+        :city => [:zagreb, :zadar],
+        :time_of_day => [:morning, :evening] })
+
+        subject.table_data do
+          subject.zagreb do
+            subject.morning do
+              subject.coal '8t' 
+              subject.sugar '9t' 
+            end
+          end
+        end
+        subject.update_attributes(:material => :coal, :city => :zagreb, :time_of_day => :evening)
+
+      expect do
+        subject.table_result.should == '8t'
+      end.to raise_error(MoreThanOneResult, 'More than one result :8t, 9t')
+    end
+
   end
 end

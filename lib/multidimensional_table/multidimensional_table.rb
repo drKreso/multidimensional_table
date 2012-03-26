@@ -1,5 +1,5 @@
 require 'multidimensional_table/non_existant_dimension_attribute'
-require 'multidimensional_table/non_valid_dimension'
+require 'multidimensional_table/more_than_one_result'
 
 module MultidimensionalTable
 
@@ -38,7 +38,11 @@ module MultidimensionalTable
   end
 
   def table_result
-    @table_rules.each { |key, condition| return key if eval(condition.join(' && ')) == true }
+    result =  @table_rules.each { |key, condition| return key if eval(condition.join(' && ')) == true }
+    if result.size > 1
+      raise MoreThanOneResult, result
+    end
+    result
   end
 
   def table_data
