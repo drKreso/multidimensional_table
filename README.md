@@ -1,5 +1,9 @@
 # MultidimensionalTable
 
+--------
+I ended up not liking implementation, API and name so I changed all three result is in md_data gem.
+--------
+
 This is a product of a coding kata. I wanted an easy way to describe multidimensional table
 but only using ruby code and not some sort of .yaml or other custom format that you have to parse in some way.
 
